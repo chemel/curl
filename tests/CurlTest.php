@@ -7,7 +7,7 @@ use Alc\Curl\Curl;
 $curl = new Curl();
 $curl->useChrome();
 
-// Get request
+// GET request
 $response = $curl->get('http://httpbin.org/get');
 var_dump( $response->getStatusCode() );
 var_dump( $response->success() );

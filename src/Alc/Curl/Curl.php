@@ -9,7 +9,6 @@ class Curl {
 
     private $url = null;
     private $postData = null;
-
     private $options = null;
 
     // Cookies
@@ -276,9 +275,7 @@ class Curl {
         }
         
         $this->options[CURLOPT_URL] = $this->url;
-        
-        $this->info = array();
-                
+
         $ch = curl_init();
         curl_setopt_array($ch, $this->options);
 
@@ -331,5 +328,92 @@ class Curl {
         if( $options ) $this->setOptions( $options );
 
         return $this->exec();
+    }
+
+    /**
+     * Perform GET request and return his content
+     *
+     * @param string url
+     * @param array options
+     *
+     * @return string content
+     */
+    public function getContent( $url, $options = null ) {
+
+        return $this->get( $url, $options )->getContent();
+    }
+
+    /**
+     * Perform GET request and return decoded json
+     *
+     * @param string url
+     * @param array options
+     *
+     * @return array json
+     */
+    public function getJson( $url, $options = null ) {
+
+        return $this->get( $url, $options )->getJson();
+    }
+
+    /**
+     * Get server http headers
+     *
+     * @param string url
+     *
+     * @return array header
+     */
+    public function getHttpHeaders( $url ) {
+
+        $this->setUrl( $url );
+        $this->useDefaultConfig();
+
+        $this->addOptions(array(
+            CURLOPT_HEADER => true,
+            CURLOPT_NOBODY => true,
+        ));
+
+        $response = $this->exec();
+        $headers = $response->getContent();
+
+        return explode("\r\n", trim($headers));
+    }
+
+    /**
+     * Unshort url
+     *
+     * @param string url
+     *
+     * @return string url
+     */
+    public function unshortUrl( $url ) {
+
+        $this->setUrl( $url );
+
+        if( preg_match('/^https?:\/\/t\.co\//i', $url) ) {
+
+          $this->setOptions(array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => false,
+            CURLOPT_NOBODY => true,
+            CURLOPT_AUTOREFERER => false,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_CONNECTTIMEOUT => 15,
+            CURLOPT_TIMEOUT => 30,
+          ));
+        }
+        else {
+
+            $this->useChrome();
+
+            $this->addOptions(array(
+                CURLOPT_NOBODY => true,
+            ));
+        }
+
+        $response = $this->exec();
+
+        return $response->getUrl();
     }
 }

@@ -27,6 +27,16 @@ class CurlResponse {
     }
 
     /**
+     * Get Curl instance
+     *
+     * @return Curl curl
+     */
+    public function getCurl() {
+
+        return $this->curl;
+    }
+
+    /**
      * Get Content
      *
      * @return string content
