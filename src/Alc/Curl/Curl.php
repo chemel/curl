@@ -197,7 +197,7 @@ class Curl {
      */
     public function getChromeUserAgent() {
 
-        return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36';
+        return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36';
     }
 
     /**
@@ -354,6 +354,37 @@ class Curl {
     public function getJson( $url, $options = null ) {
 
         return $this->get( $url, $options )->getJson();
+    }
+
+    /**
+     * Download a file
+     *
+     * @param string url
+     * @param string fullpath
+     */
+    public function download( $url, $fullpath = null ) {
+
+        if( $fullpath === null )
+            $fullpath = __DIR__;
+
+        if( is_dir($fullpath) ) {
+            $dir = $fullpath;
+            $filename = substr($url, strripos($url, '/'));
+            $fullpath = $dir.$filename;
+        }
+
+        $fp = fopen($fullpath, 'w+');
+
+        $this->setUrl( $url );
+        $this->useChrome();
+
+        $this->addOptions(array(
+            CURLOPT_FILE => $fp,
+        ));
+
+        $response = $this->exec();
+
+        return $response;
     }
 
     /**
