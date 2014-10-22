@@ -361,17 +361,24 @@ class Curl {
      *
      * @param string url
      * @param string fullpath
+     * @param boolean override
+     *
+     * @return CurlResponse response
      */
-    public function download( $url, $fullpath = null ) {
+    public function download( $url, $fullpath = null, $override = true ) {
 
         if( $fullpath === null )
             $fullpath = __DIR__;
 
         if( is_dir($fullpath) ) {
-            $dir = $fullpath;
-            $filename = substr($url, strripos($url, '/'));
-            $fullpath = $dir.$filename;
+
+            $dir = rtrim($fullpath, '/');
+            $filename = substr($url, strripos($url, '/')+1);
+            $fullpath = $dir.'/'.$filename;
         }
+
+        if( $override === false && file_exists($fullpath) )
+            throw new \Exception('File allready exist');
 
         $fp = fopen($fullpath, 'w+');
 
