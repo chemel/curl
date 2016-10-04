@@ -151,13 +151,13 @@ class Curl {
     }
 
     /**
-     * Chrome useragent
+     * Firefox useragent
      *
      * @return string useragent
      */
     public function getFirefoxUserAgent() {
 
-        return 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0';
+        return 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0';
     }
 
     /**
@@ -197,7 +197,7 @@ class Curl {
      */
     public function getChromeUserAgent() {
 
-        return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36';
+        return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36';
     }
 
     /**
