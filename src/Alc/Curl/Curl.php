@@ -163,7 +163,31 @@ class Curl {
     /**
      * Firefox options
      */
-    public function useFirefox() {
+    public function useFirefox( $lang = 'en' ) {
+
+        if( $lang == 'en' ) { // en
+
+            $headers = array(
+                'User-Agent: '.$this->getFirefoxUserAgent(),
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language: en-US,en;q=0.5',
+                'Accept-Encoding: gzip, deflate',
+                'DNT: 1',
+                'Connection: keep-alive',
+            );
+        }
+        else { // fr
+
+            $headers = array(
+                'User-Agent: '.$this->getFirefoxUserAgent(),
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3',
+                'Accept-Encoding: gzip, deflate',
+                'DNT: 1',
+                'Connection: keep-alive',
+                'Cache-Control: max-age=0',
+            );
+        }
 
         $this->setOptions(array(
             CURLOPT_RETURNTRANSFER => true,
@@ -177,14 +201,7 @@ class Curl {
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
             CURLOPT_ENCODING => 'gzip',
-            CURLOPT_HTTPHEADER => array(
-                'User-Agent: '.$this->getFirefoxUserAgent(),
-                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language: fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3',
-                'Accept-Encoding: gzip, deflate',
-                'DNT: 1',
-                'Connection: keep-alive',
-            ),
+            CURLOPT_HTTPHEADER => $headers,
         ));
 
         return $this;
@@ -209,21 +226,24 @@ class Curl {
 
             $headers = array(
                 'Connection: keep-alive',
-                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Upgrade-Insecure-Requests: 1',
                 'User-Agent: '.$this->getChromeUserAgent(),
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                 'DNT: 1',
-                'Accept-Encoding: gzip,deflate,sdch',
-                'Accept-Language: en-US,en;q=0.8,fr-FR;q=0.6,fr;q=0.4',
+                'Accept-Encoding: gzip, deflate, sdch',
+                'Accept-Language: en-US,en;q=0.8',
             );
         }
         else { // fr
 
             $headers = array(
                 'Connection: keep-alive',
-                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Cache-Control: max-age=0',
+                'Upgrade-Insecure-Requests: 1',
                 'User-Agent: '.$this->getChromeUserAgent(),
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',                
                 'DNT: 1',
-                'Accept-Encoding: gzip,deflate,sdch',
+                'Accept-Encoding: gzip, deflate ,sdch',
                 'Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4',
             );
         }
