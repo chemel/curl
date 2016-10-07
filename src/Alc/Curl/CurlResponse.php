@@ -109,6 +109,26 @@ class CurlResponse {
     }
 
     /**
+     * Get error no
+     *
+     * @return int errno
+     */
+    public function getErrorNo() {
+
+        return $this->errno;
+    }
+
+    /**
+     * Get last error
+     *
+     * @return string error
+     */
+    public function getError() {
+
+        return $this->error;
+    }
+
+    /**
      * Get requested url
      *
      * @return string url
