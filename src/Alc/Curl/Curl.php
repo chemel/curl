@@ -320,13 +320,18 @@ class Curl {
      * Perform GET request
      *
      * @param string url
+     * @param array getData
      * @param array options
      *
      * @return CurlResponse reponse
      */
-    public function get( $url, $options = null ) {
+    public function get( $url, $getData = array(), $options = null ) {
+
+        if( !empty($getData))
+            $url = $url.'?'.http_build_query($getData);
 
         $this->setUrl( $url );
+
         if( $options ) $this->setOptions( $options );
 
         return $this->exec();
