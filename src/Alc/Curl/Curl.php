@@ -5,7 +5,7 @@ namespace Alc\Curl;
 /**
  * Curl
  */
-class Curl {
+class Curl implements CurlInterface {
 
     private $url = null;
     private $postData = null;
