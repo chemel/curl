@@ -1,8 +1,7 @@
 {
     "name": "alc/curl",
     "description": "Curl Wrapper",
-    "version": "2.0.0",
     "autoload": {
-        "psr-0": { "Alc\\Curl": "src/" }
+        "psr-4": { "Alc\\Curl\\": "src/" }
     }   
 }
