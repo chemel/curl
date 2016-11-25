@@ -408,7 +408,6 @@ class Curl implements CurlInterface {
         $fp = fopen($fullpath, 'w+');
 
         $this->setUrl( $url );
-        $this->useChrome();
 
         $this->addOptions(array(
             CURLOPT_FILE => $fp,
