@@ -83,6 +83,16 @@ class Curl implements CurlInterface {
     }
 
     /**
+     * Get options
+     *
+     * @param array options
+     */
+    public function getOptions() {
+
+        return $this->options;
+    }
+
+    /**
      * Set single option
      *
      * @param string key
@@ -414,6 +424,8 @@ class Curl implements CurlInterface {
         ));
 
         $response = $this->exec();
+
+        unset($this->options[CURLOPT_FILE]);
 
         return $response;
     }
