@@ -7,60 +7,88 @@ namespace Alc\Curl;
  */
 class CookieJar {
 
-	private $filename;
-	private $entries;
+    private $filename;
+    private $entries;
 
-	/**
-	 * __construct
-	 */
-	public function __construct($filename) {
+    /**
+     * __construct
+     */
+    public function __construct($filename) {
 
-		$this->filename = $filename;
+        $this->filename = $filename;
 
-		$this->refresh();
-	}
+        if(file_exists($this->filename))  $this->refresh();
+    }
 
-	/**
-	 * parse
-	 */
-	protected function refresh() {
+    /**
+     * Get filename
+     *
+     * @return string filename
+     */
+    public function getFilename() {
 
-		$this->entries = array();
+        return $this->filename;
+    }
 
-		$content = file_get_contents($this->filename);
+    /**
+     * parse
+     */
+    public function refresh() {
 
-		preg_match_all('/(.*)\t(.*)\t(.*)\t(.*)\t(.*)\t(.*)\t(.*)\n/i', $content, $matches);
+        $this->entries = array();
 
-		foreach( $matches[0] as $i => $match ) {
+        $content = file_get_contents($this->filename);
 
-			$entry = new CookieJarEntry($matches[1][$i], $matches[2][$i], $matches[3][$i], $matches[4][$i], $matches[5][$i], $matches[6][$i], $matches[7][$i]);
+        preg_match_all('/(.*)\t(.*)\t(.*)\t(.*)\t(.*)\t(.*)\t(.*)\n/i', $content, $matches);
 
-			$this->entries[] = $entry;
-		}
-	}
+        foreach( $matches[0] as $i => $match ) {
 
-	/**
-	 * getEntries
-	 *
-	 * @return array<CookieJarEntry> entries
-	 */
-	public function getEntries() {
+            $entry = new CookieJarEntry($matches[1][$i], $matches[2][$i], $matches[3][$i], $matches[4][$i], $matches[5][$i], $matches[6][$i], $matches[7][$i]);
 
-		return $this->entries;
-	}
+            $this->entries[] = $entry;
+        }
+    }
 
-	/**
-	 * save
-	 */
-	public function save() {
+    /**
+     * Get entries
+     *
+     * @return array<CookieJarEntry> entries
+     */
+    public function getEntries() {
 
-		$content = array();
+        return $this->entries;
+    }
 
-		foreach($this->getEntries() as $entry) {
+    /**
+     * Find entry
+     *
+     * @param string domain
+     * @param string name
+     * @param string path
+     *
+     * @return CookieJarEntry
+     */
+    public function find( $domain, $name, $path = '/' ) {
 
-			$content[] = $entry->__toString();
-		}
+        foreach( $this->getEntries() as $entry ) {
 
-		file_put_contents($this->filename, implode("\n", $content)."\n");
-	}
+            if( $entry->getDomain() == $domain && $entry->getName() == $name && $entry->getPath() == $path )
+                return $entry;
+        }
+    }
+
+    /**
+     * save
+     */
+    public function save() {
+
+        $content = array();
+
+        foreach($this->getEntries() as $entry) {
+
+            $content[] = $entry->__toString();
+        }
+
+        file_put_contents($this->filename, implode("\n", $content)."\n");
+    }
 }

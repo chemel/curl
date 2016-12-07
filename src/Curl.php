@@ -55,11 +55,11 @@ class Curl implements CurlInterface {
     /**
      * Set cookie jar file
      *
-     * @param string filepath
+     * @param CookieJar|string jar
      */ 
-    public function setCookieJar( $path ) {
+    public function setCookieJar( $jar ) {
 
-        $this->cookieJar = $path;
+        $this->cookieJar = $jar;
 
         return $this;
     }
@@ -330,8 +330,11 @@ class Curl implements CurlInterface {
         }
         elseif( $this->cookieJar !== null ) {
 
-            $this->options[CURLOPT_COOKIEFILE] = $this->cookieJar;
-            $this->options[CURLOPT_COOKIEJAR] = $this->cookieJar;
+            $cookieJarFilename = ( $this->cookieJar instanceof CookieJar )
+                ? $this->cookieJar->getFilename() : $this->cookieJar;
+
+            $this->options[CURLOPT_COOKIEFILE] = $cookieJarFilename;
+            $this->options[CURLOPT_COOKIEJAR] = $cookieJarFilename;
         }
         
         $this->options[CURLOPT_URL] = $this->url;
