@@ -1,7 +1,24 @@
 {
     "name": "alc/curl",
+    "type": "library",
     "description": "Curl Wrapper",
+    "keywords": ["curl", "http"],
+    "homepage": "https://github.com/chemel/curl",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexis CHEMEL",
+            "homepage": "https://github.com/chemel"
+        }
+    ],
     "autoload": {
-        "psr-4": { "Alc\\Curl\\": "src/" }
-    }   
+        "psr-4": {
+        	"Alc\\Curl\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
+        }
+    }
 }
