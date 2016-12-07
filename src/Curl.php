@@ -365,14 +365,12 @@ class Curl implements CurlInterface {
      *
      * @return CurlResponse reponse
      */
-    public function get( $url, $getData = array(), $options = null ) {
+    public function get( $url, $getData = array() ) {
 
         if( !empty($getData))
             $url = $url.'?'.http_build_query($getData);
 
         $this->setUrl( $url );
-
-        if( $options ) $this->setOptions( $options );
 
         return $this->exec();
     }
@@ -386,11 +384,10 @@ class Curl implements CurlInterface {
      *
      * @return CurlResponse reponse
      */
-    public function post( $url, $postData = array(), $options = null ) {
+    public function post( $url, $postData = array() ) {
 
         $this->setUrl( $url );
         $this->setPostData( $postData );
-        if( $options ) $this->setOptions( $options );
 
         return $this->exec();
     }
@@ -403,9 +400,9 @@ class Curl implements CurlInterface {
      *
      * @return string content
      */
-    public function getContent( $url, $options = null ) {
+    public function getContent( $url ) {
 
-        return $this->get( $url, $options )->getContent();
+        return $this->get( $url )->getContent();
     }
 
     /**
@@ -416,9 +413,9 @@ class Curl implements CurlInterface {
      *
      * @return array json
      */
-    public function getJson( $url, $options = null ) {
+    public function getJson( $url ) {
 
-        return $this->get( $url, $options )->getJson();
+        return $this->get( $url )->getJson();
     }
 
     /**
