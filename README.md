@@ -1,8 +1,8 @@
+# Curl
 Curl Wrapper
-====
 
-Install via composer:
-=====================
+## Install via composer
+
 Edit your composer.json file to include the following:
 
 ```json
@@ -13,8 +13,7 @@ Edit your composer.json file to include the following:
 }
 ```
 
-Usage:
-======
+## Usage
 
 ```php
 
