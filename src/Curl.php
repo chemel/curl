@@ -277,6 +277,36 @@ class Curl implements CurlInterface {
     }
 
     /**
+     * Googlebot options
+     */
+    public function useGooglebot() {
+
+        $headers = array(
+            'Connection: Keep-alive',
+            'Accept: text/plain,text/html',
+            'User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            'Accept-Encoding: gzip,deflate,br',
+        );
+
+        $this->setOptions(array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER => false,
+            CURLOPT_AUTOREFERER => false,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS => 5,
+            CURLOPT_CONNECTTIMEOUT => 15,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
+            CURLOPT_ENCODING => 'gzip',
+            CURLOPT_HTTPHEADER => $headers,
+        ));
+
+        return $this;
+    }
+
+    /**
      * Perform http request
      *
      * @return CurlResponse reponse
