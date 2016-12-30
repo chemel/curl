@@ -9,10 +9,10 @@ $curl->useChrome();
 
 // GET request
 $response = $curl->get('http://httpbin.org/get');
-var_dump( $response->getStatusCode() );
-var_dump( $response->success() );
-print_r( $response->getJson() );
+var_dump($response->getStatusCode());
+var_dump($response->success());
+print_r($response->getJson());
 
 // POST request
 $response = $curl->post('http://httpbin.org/post', array('var1' => 1, 'var2' => 2));
-print_r( $response->getJson() );
+print_r($response->getJson());

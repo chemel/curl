@@ -15,7 +15,7 @@ $curl->setCookieJar($jar);
 
 
 $response = $curl->get('http://httpbin.org/cookies/set?foo=1&bar=2');
-print_r( $response->getJson() );
+print_r($response->getJson());
 
 
 $jar->refresh();
@@ -28,4 +28,4 @@ $entry->setValue('3');
 $jar->save();
 
 $response = $curl->get('http://httpbin.org/headers');
-print_r( $response->getJson() );
+print_r($response->getJson());

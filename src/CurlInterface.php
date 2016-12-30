@@ -5,9 +5,9 @@ namespace Alc\Curl;
 /**
  * CurlInterface
  */
-interface CurlInterface {
+interface CurlInterface
+{
+    public function get($url, $getData = array());
 
-	public function get( $url, $getData = array() );
-
-	public function post( $url, $postData = array() );
+    public function post($url, $postData = array());
 }

@@ -7,5 +7,3 @@ use Alc\Curl\Curl;
 $curl = new Curl();
 
 $curl->download('http://stackoverflow.com', '/tmp/');
-
-

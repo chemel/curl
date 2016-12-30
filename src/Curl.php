@@ -5,8 +5,8 @@ namespace Alc\Curl;
 /**
  * Curl
  */
-class Curl implements CurlInterface {
-
+class Curl implements CurlInterface
+{
     private $url = null;
     private $postData = null;
     private $options = null;
@@ -19,11 +19,10 @@ class Curl implements CurlInterface {
      * Constructor
      *
      * @param string url
-     */ 
-    public function __construct() {
-
-        if( !function_exists('curl_init') ) {
-
+     */
+    public function __construct()
+    {
+        if (!function_exists('curl_init')) {
             throw new \Exception('php5-curl not installed');
         }
     }
@@ -33,8 +32,8 @@ class Curl implements CurlInterface {
      *
      * @param string url
      */
-    public function setUrl( $url ) {
-
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -45,8 +44,8 @@ class Curl implements CurlInterface {
      *
      * @param array postData
      */
-    public function setPostData( $postData ) {
-
+    public function setPostData($postData)
+    {
         $this->postData = $postData;
 
         return $this;
@@ -56,19 +55,19 @@ class Curl implements CurlInterface {
      * Set cookie jar file
      *
      * @param CookieJar|string jar
-     */ 
-    public function setCookieJar( $jar ) {
-
+     */
+    public function setCookieJar($jar)
+    {
         $this->cookieJar = $jar;
 
         return $this;
     }
-    
+
     /**
      * Cookie jar getter
      */
-    public function getCookieJar() {
-
+    public function getCookieJar()
+    {
         return $this->cookieJar;
     }
 
@@ -77,8 +76,8 @@ class Curl implements CurlInterface {
      *
      * @param string cookie
      */
-    public function setCookie( $cookie ) {
-
+    public function setCookie($cookie)
+    {
         return $this->cookie = $cookie;
     }
 
@@ -87,8 +86,8 @@ class Curl implements CurlInterface {
      *
      * @param array options
      */
-    public function getOptions() {
-
+    public function getOptions()
+    {
         return $this->options;
     }
 
@@ -98,9 +97,9 @@ class Curl implements CurlInterface {
      * @param string key
      * @param string value
      */
-    public function setOption( $key, $value ) {
-
-        if( $this->options === null ) {
+    public function setOption($key, $value)
+    {
+        if ($this->options === null) {
             $this->options = array();
         }
 
@@ -114,8 +113,8 @@ class Curl implements CurlInterface {
      *
      * @param array options
      */
-    public function setOptions( $options ) {
-
+    public function setOptions($options)
+    {
         $this->options = $options;
 
         return $this;
@@ -126,13 +125,11 @@ class Curl implements CurlInterface {
      *
      * @param array options
      */
-    public function addOptions( $options ) {
-
-        if( !empty($options) ) {
-
-            foreach( $options as $key => $value ) {
-
-                $this->setOption( $key, $value );
+    public function addOptions($options)
+    {
+        if (!empty($options)) {
+            foreach ($options as $key => $value) {
+                $this->setOption($key, $value);
             }
         }
 
@@ -142,8 +139,8 @@ class Curl implements CurlInterface {
     /**
      * Default options
      */
-    public function useDefaultConfig() {
-
+    public function useDefaultConfig()
+    {
         $this->setOptions(array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => false,
@@ -165,17 +162,17 @@ class Curl implements CurlInterface {
      *
      * @return string useragent
      */
-    public function getFirefoxUserAgent() {
-
+    public function getFirefoxUserAgent()
+    {
         return 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0';
     }
 
     /**
      * Firefox options
      */
-    public function useFirefox( $lang = 'en' ) {
-
-        if( $lang == 'en' ) { // en
+    public function useFirefox($lang = 'en')
+    {
+        if ($lang == 'en') { // en
 
             $headers = array(
                 'User-Agent: '.$this->getFirefoxUserAgent(),
@@ -186,8 +183,7 @@ class Curl implements CurlInterface {
                 'Connection: keep-alive',
                 'Upgrade-Insecure-Requests: 1',
             );
-        }
-        else { // fr
+        } else { // fr
 
             $headers = array(
                 'User-Agent: '.$this->getFirefoxUserAgent(),
@@ -223,17 +219,17 @@ class Curl implements CurlInterface {
      *
      * @return string useragent
      */
-    public function getChromeUserAgent() {
-
+    public function getChromeUserAgent()
+    {
         return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36';
     }
 
     /**
      * Chrome options
      */
-    public function useChrome( $lang = 'en' ) {
-
-        if( $lang == 'en' ) { // en
+    public function useChrome($lang = 'en')
+    {
+        if ($lang == 'en') { // en
 
             $headers = array(
                 'Connection: keep-alive',
@@ -244,14 +240,13 @@ class Curl implements CurlInterface {
                 'Accept-Encoding: gzip, deflate, sdch',
                 'Accept-Language: en-US,en;q=0.8,fr;q=0.6',
             );
-        }
-        else { // fr
+        } else { // fr
 
             $headers = array(
                 'Connection: keep-alive',
                 'Upgrade-Insecure-Requests: 1',
                 'User-Agent: '.$this->getChromeUserAgent(),
-                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',                
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                 'DNT: 1',
                 'Accept-Encoding: gzip, deflate ,sdch',
                 'Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4',
@@ -279,8 +274,8 @@ class Curl implements CurlInterface {
     /**
      * Googlebot options
      */
-    public function useGooglebot() {
-
+    public function useGooglebot()
+    {
         $headers = array(
             'Connection: Keep-alive',
             'Accept: text/plain,text/html',
@@ -310,33 +305,28 @@ class Curl implements CurlInterface {
      * Perform http request
      *
      * @return CurlResponse reponse
-     */ 
-    public function exec() {
-
-        if( $this->options === null ) {
-
-            $this->useDefaultConfig();          
+     */
+    public function exec()
+    {
+        if ($this->options === null) {
+            $this->useDefaultConfig();
         }
-        
-        if( $this->postData != null ) {
 
+        if ($this->postData != null) {
             $this->options[CURLOPT_POST] = true;
             $this->options[CURLOPT_POSTFIELDS] = $this->postData;
         }
-        
-        if( $this->cookie !== null ) {
 
+        if ($this->cookie !== null) {
             $this->options[CURLOPT_COOKIE] = $this->cookie;
-        }
-        elseif( $this->cookieJar !== null ) {
-
-            $cookieJarFilename = ( $this->cookieJar instanceof CookieJar )
+        } elseif ($this->cookieJar !== null) {
+            $cookieJarFilename = ($this->cookieJar instanceof CookieJar)
                 ? $this->cookieJar->getFilename() : $this->cookieJar;
 
             $this->options[CURLOPT_COOKIEFILE] = $cookieJarFilename;
             $this->options[CURLOPT_COOKIEJAR] = $cookieJarFilename;
         }
-        
+
         $this->options[CURLOPT_URL] = $this->url;
 
         $ch = curl_init();
@@ -344,7 +334,7 @@ class Curl implements CurlInterface {
 
         $content = curl_exec($ch);
 
-        $response = new CurlResponse( $this );
+        $response = new CurlResponse($this);
 
         $response->url = $this->url;
         $response->content = $content;
@@ -352,7 +342,7 @@ class Curl implements CurlInterface {
         $response->error = curl_error($ch);
         $response->errno = curl_errno($ch);
         $response->info = curl_getinfo($ch);
-        
+
         $this->url = null;
         $this->postData = null;
 
@@ -368,12 +358,13 @@ class Curl implements CurlInterface {
      *
      * @return CurlResponse reponse
      */
-    public function get( $url, $getData = array() ) {
-
-        if( !empty($getData))
+    public function get($url, $getData = array())
+    {
+        if (!empty($getData)) {
             $url = $url.'?'.http_build_query($getData);
+        }
 
-        $this->setUrl( $url );
+        $this->setUrl($url);
 
         return $this->exec();
     }
@@ -387,10 +378,10 @@ class Curl implements CurlInterface {
      *
      * @return CurlResponse reponse
      */
-    public function post( $url, $postData = array() ) {
-
-        $this->setUrl( $url );
-        $this->setPostData( $postData );
+    public function post($url, $postData = array())
+    {
+        $this->setUrl($url);
+        $this->setPostData($postData);
 
         return $this->exec();
     }
@@ -403,9 +394,9 @@ class Curl implements CurlInterface {
      *
      * @return string content
      */
-    public function getContent( $url ) {
-
-        return $this->get( $url )->getContent();
+    public function getContent($url)
+    {
+        return $this->get($url)->getContent();
     }
 
     /**
@@ -416,9 +407,9 @@ class Curl implements CurlInterface {
      *
      * @return array json
      */
-    public function getJson( $url ) {
-
-        return $this->get( $url )->getJson();
+    public function getJson($url)
+    {
+        return $this->get($url)->getJson();
     }
 
     /**
@@ -430,24 +421,25 @@ class Curl implements CurlInterface {
      *
      * @return CurlResponse response
      */
-    public function download( $url, $fullpath = null, $override = true ) {
-
-        if( $fullpath === null )
+    public function download($url, $fullpath = null, $override = true)
+    {
+        if ($fullpath === null) {
             $fullpath = __DIR__;
+        }
 
-        if( is_dir($fullpath) ) {
-
+        if (is_dir($fullpath)) {
             $dir = rtrim($fullpath, '/');
             $filename = substr($url, strripos($url, '/')+1);
             $fullpath = $dir.'/'.$filename;
         }
 
-        if( $override === false && file_exists($fullpath) )
+        if ($override === false && file_exists($fullpath)) {
             throw new \Exception('File allready exist');
+        }
 
         $fp = fopen($fullpath, 'w+');
 
-        $this->setUrl( $url );
+        $this->setUrl($url);
 
         $this->addOptions(array(
             CURLOPT_FILE => $fp,
@@ -467,9 +459,9 @@ class Curl implements CurlInterface {
      *
      * @return array header
      */
-    public function getHttpHeaders( $url ) {
-
-        $this->setUrl( $url );
+    public function getHttpHeaders($url)
+    {
+        $this->setUrl($url);
         $this->useDefaultConfig();
 
         $this->addOptions(array(
@@ -490,13 +482,12 @@ class Curl implements CurlInterface {
      *
      * @return string url
      */
-    public function unshortUrl( $url ) {
+    public function unshortUrl($url)
+    {
+        $this->setUrl($url);
 
-        $this->setUrl( $url );
-
-        if( preg_match('/^https?:\/\/t\.co\//i', $url) ) {
-
-          $this->setOptions(array(
+        if (preg_match('/^https?:\/\/t\.co\//i', $url)) {
+            $this->setOptions(array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER => false,
             CURLOPT_NOBODY => true,
@@ -506,9 +497,7 @@ class Curl implements CurlInterface {
             CURLOPT_CONNECTTIMEOUT => 15,
             CURLOPT_TIMEOUT => 30,
           ));
-        }
-        else {
-
+        } else {
             $this->useChrome();
 
             $this->addOptions(array(

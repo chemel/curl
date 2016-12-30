@@ -5,8 +5,8 @@ namespace Alc\Curl;
 /**
  * CurlResponse
  */
-class CurlResponse {
-
+class CurlResponse
+{
     protected $curl;
 
     public $url;
@@ -21,8 +21,8 @@ class CurlResponse {
      *
      * @param Curl curl
      */
-    public function __construct( Curl $curl ) {
-
+    public function __construct(Curl $curl)
+    {
         $this->curl = $curl;
     }
 
@@ -31,8 +31,8 @@ class CurlResponse {
      *
      * @return Curl curl
      */
-    public function getCurl() {
-
+    public function getCurl()
+    {
         return $this->curl;
     }
 
@@ -41,8 +41,8 @@ class CurlResponse {
      *
      * @return string content
      */
-    public function getContent() {
-
+    public function getContent()
+    {
         return $this->content;
     }
 
@@ -51,9 +51,9 @@ class CurlResponse {
      *
      * @return string json
      */
-    public function getJson() {
-
-        return json_decode( $this->getContent() );
+    public function getJson()
+    {
+        return json_decode($this->getContent());
     }
 
     /**
@@ -61,8 +61,8 @@ class CurlResponse {
      *
      * @return array
      */
-    public function getInfos() {
-
+    public function getInfos()
+    {
         return $this->info;
     }
 
@@ -73,8 +73,8 @@ class CurlResponse {
      *
      * @return string info
      */
-    public function getInfo( $key ) {
-
+    public function getInfo($key)
+    {
         return isset($this->info[$key]) ? $this->info[$key] : null;
     }
 
@@ -83,8 +83,8 @@ class CurlResponse {
      *
      * @return int httpCode
      */
-    public function getStatusCode() {
-
+    public function getStatusCode()
+    {
         return $this->getInfo('http_code');
     }
 
@@ -93,8 +93,8 @@ class CurlResponse {
      *
      * @return boolean
      */
-    public function success() {
-
+    public function success()
+    {
         return $this->getStatusCode() == 200;
     }
 
@@ -103,8 +103,8 @@ class CurlResponse {
      *
      * @return int count
      */
-    public function getRedirectCount() {
-
+    public function getRedirectCount()
+    {
         return $this->getInfo('redirect_count');
     }
 
@@ -113,8 +113,8 @@ class CurlResponse {
      *
      * @return int errno
      */
-    public function getErrorNo() {
-
+    public function getErrorNo()
+    {
         return $this->errno;
     }
 
@@ -123,8 +123,8 @@ class CurlResponse {
      *
      * @return string error
      */
-    public function getError() {
-
+    public function getError()
+    {
         return $this->error;
     }
 
@@ -133,8 +133,8 @@ class CurlResponse {
      *
      * @return string url
      */
-    public function getRequestedUrl() {
-
+    public function getRequestedUrl()
+    {
         return $this->url;
     }
 
@@ -143,16 +143,16 @@ class CurlResponse {
      *
      * @return string url
      */
-    public function getUrl() {
-
+    public function getUrl()
+    {
         return $this->getInfo('url');
     }
 
     /**
      * toString
      */
-    public function __toString() {
-
+    public function __toString()
+    {
         return $this->getContent();
     }
 }
