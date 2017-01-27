@@ -164,7 +164,7 @@ class Curl implements CurlInterface
      */
     public function getFirefoxUserAgent()
     {
-        return 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0';
+        return 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0';
     }
 
     /**
@@ -221,7 +221,7 @@ class Curl implements CurlInterface
      */
     public function getChromeUserAgent()
     {
-        return 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36';
+        return 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36';
     }
 
     /**
@@ -248,7 +248,7 @@ class Curl implements CurlInterface
                 'User-Agent: '.$this->getChromeUserAgent(),
                 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                 'DNT: 1',
-                'Accept-Encoding: gzip, deflate ,sdch',
+                'Accept-Encoding: gzip, deflate, sdch',
                 'Accept-Language: fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4',
             );
         }
